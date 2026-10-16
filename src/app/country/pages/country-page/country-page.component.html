@@ -1,0 +1,8 @@
+@if(!countryResource.isLoading() && countryResource.value() === undefined) {
+<app-nonfound></app-nonfound>
+}
+@if(countryResource.value()){
+    <app-country-page-information [country]="countryResource.value()!"></app-country-page-information>
+
+}
+

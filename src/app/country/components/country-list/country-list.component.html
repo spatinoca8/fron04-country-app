@@ -1,0 +1,59 @@
+<section class="mt-5">
+    <table class="table table-md mt-2 w-full">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Emoji</th>
+                <th>Bandera</th>
+                <th>País</th>
+                <th>Capital</th>
+                <th>Población</th>
+                <th>Región</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (country of countries(); track country.code; let i = $index) {
+            <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ country.flagEmogi }}</td>
+                <td><img [src]="country.flagUrl" [alt]="country.nameCommon" class="w-10" /></td>
+                <td>{{ country.nameCommon }}</td>
+                <td>{{ country.capitalName }}</td>
+                <td> <span class="badge badge-primary">
+                        {{ country.population | number }}
+                    </span>
+                </td>
+                <td> <a
+                [routerLink]="['/country/by', country.code]"
+                     class="link-primary cursor-pointer">Mas informacion </a></td>
+            </tr>
+            }
+            @if(errorMessage())
+            {
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <h3 >{{ errorMessage() }}</h3>
+                    </td>
+                </tr>
+
+            }
+            @if(isEmpty() && !isLoading())
+            {
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <h3 >No hay países para mostrar</h3>
+                    </td>
+                </tr>
+            }
+             @if(isLoading())
+            {
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <h3 >Cargando paises...</h3>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</section>
